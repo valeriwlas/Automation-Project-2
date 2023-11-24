@@ -5,6 +5,7 @@ describe('Issue deletion', () => {
 
   const getConfirmationPopup = () => cy.get('[data-testid="modal:confirm"]');
 
+  //Delete the issue by clicking the delete button and confirming the deletion
   it('Test Case 1: Issue Deletion', () => {
 
     cy.get('[data-testid="icon:trash"]').click();
@@ -13,7 +14,7 @@ describe('Issue deletion', () => {
     cy.contains('Are you sure you want to delete this issue?').should('be.visible');
     cy.contains("Once you delete, it's gone for good.").should('be.visible');
     cy.contains('Delete issue').should('be.visible')
-    .click();
+      .click();
 
     getConfirmationPopup().should('not.exist');
 
@@ -30,12 +31,12 @@ describe('Issue deletion', () => {
     cy.contains('Are you sure you want to delete this issue?').should('be.visible');
     cy.contains("Once you delete, it's gone for good.").should('be.visible');
     cy.contains('Cancel').should('be.visible')
-    .click();
+      .click();
 
     getConfirmationPopup().should('not.exist');
 
     cy.get('[data-testid="icon:close"]').first()
-    .click();
+      .click();
 
     cy.contains('This is an issue of type: Task.').should('exist');
   });
