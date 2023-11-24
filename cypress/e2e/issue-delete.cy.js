@@ -12,7 +12,8 @@ describe('Issue deletion', () => {
     getConfirmationPopup().should('be.visible');
     cy.contains('Are you sure you want to delete this issue?').should('be.visible');
     cy.contains("Once you delete, it's gone for good.").should('be.visible');
-    cy.contains('Delete issue').click();
+    cy.contains('Delete issue').should('be.visible')
+    .click();
 
     getConfirmationPopup().should('not.exist');
 
@@ -28,11 +29,13 @@ describe('Issue deletion', () => {
     getConfirmationPopup().should('be.visible');
     cy.contains('Are you sure you want to delete this issue?').should('be.visible');
     cy.contains("Once you delete, it's gone for good.").should('be.visible');
-    cy.contains('Cancel').click();
+    cy.contains('Cancel').should('be.visible')
+    .click();
 
     getConfirmationPopup().should('not.exist');
 
-    cy.get('[data-testid="icon:close"]').first().click();
+    cy.get('[data-testid="icon:close"]').first()
+    .click();
 
     cy.contains('This is an issue of type: Task.').should('exist');
   });
