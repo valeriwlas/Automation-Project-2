@@ -1,4 +1,4 @@
-export function beforeEachIssueDelete(){
+export function beforeEachTest(){
     cy.visit('/');
     cy.url().should('eq', `${Cypress.env('baseUrl')}project/board`).then((url) => {
         //cy.visit(url + '/board');
