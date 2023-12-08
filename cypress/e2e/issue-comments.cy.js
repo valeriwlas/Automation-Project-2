@@ -1,6 +1,6 @@
 describe('Issue comments creating, editing and deleting', () => {
     beforeEach(() => {
-        beforeEachTest();
+        visitBoardAndOpenSpecificIssue();
     });
 
     const getIssueDetailsModal = () => cy.get('[data-testid="modal:issue-details"]');
@@ -65,6 +65,8 @@ describe('Issue comments creating, editing and deleting', () => {
             .should('not.exist');
     });
 
+
+    //Create a new automation test within the same spec file that combines the existing tests for adding, updating, and deleting comments into one comprehensive test.
     it('Should add,edit the added comment and delete successfully', () => {
         const getIssueComment = () => cy.get('[data-testid="issue-comment"]');
         const comment = 'TEST_COMMENT';
@@ -126,7 +128,7 @@ describe('Issue comments creating, editing and deleting', () => {
 
 
 
-function beforeEachTest() {
+function visitBoardAndOpenSpecificIssue() {
     cy.visit('/');
     cy.url().should('eq', `${Cypress.env('baseUrl')}project/board`).then((url) => {
         cy.visit(url + '/board');
