@@ -175,6 +175,25 @@ describe('Issue create', () => {
       cy.get('[data-testid="icon:task"]').should('be.visible');
     });
   });
+
+  //Bonus task 3
+
+  it('Should create an issue without title, that has leading and trailing spaces', () => {
+    const title = ' Hello world ';
+    cy.get('[data-testid="modal:issue-create"]').within(() => {
+      cy.get('.ql-editor').type('TEST_DESCRIPTION');
+      cy.get('input[name="title"]').debounced('type', title);
+      cy.get('button[type="submit"]').click();
+    });
+    cy.get('[data-testid="modal:issue-create"]').should('not.exist');
+    cy.contains('Issue has been successfully created.').should('be.visible');
+    cy.reload();
+    cy.contains('Issue has been successfully created.').should('not.exist');
+    cy.get('[data-testid="board-list:backlog').within(() => {
+      cy.get('[data-testid="list-issue"]').first().find('p')
+        .contains(title.trim());
+    });
+  });
 });
 
 

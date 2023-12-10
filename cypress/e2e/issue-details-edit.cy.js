@@ -11,8 +11,8 @@ describe('Issue details editing', () => {
     getIssueDetailsModal().within(() => {
       cy.get('[data-testid="select:type"]').click('bottomRight');
       cy.get('[data-testid="select-option:Story"]')
-          .trigger('mouseover')
-          .trigger('click');
+        .trigger('mouseover')
+        .trigger('click');
       cy.get('[data-testid="select:type"]').should('contain', 'Story');
 
       cy.get('[data-testid="select:status"]').click('bottomRight');
@@ -62,4 +62,42 @@ describe('Issue details editing', () => {
   });
 
   const getIssueDetailsModal = () => cy.get('[data-testid="modal:issue-details"]');
+
+
+  //Bonus task 1
+  const numberOfPriorities = 5;
+
+  it(`Check, that priority fields has 5 values`, () => {
+    let priorities = [];
+
+    cy.get('[data-testid="select:priority"]').invoke('text').then((extractedPriority) => {
+      priorities.push(extractedPriority);
+    })
+
+    cy.get('[data-testid="select:priority"]').click();
+    cy.get('[data-select-option-value]').then(($options) => {
+      const itemCount = Cypress.$($options).length;
+      
+      for (let index = 0; index < itemCount; index++) {
+        cy.get('[data-select-option-value]')
+          .eq(index).invoke('text').then((extractedPriority) => {
+            priorities.push(extractedPriority);
+            if (index == (itemCount - 1)) {
+              cy.log("TOTAL calculated array length: " + priorities.length);
+              expect(priorities.length).to.be.eq(numberOfPriorities);
+            }
+          });
+      };
+    });
+  });
+
+  //Bonus task 2
+
+  it('Checking that the reporters name has only characters in it', () => {
+    getIssueDetailsModal().within(() => {
+      cy.get('[data-testid="select:reporter"]').invoke('text')
+        .should('match', /^[A-Za-z ]*$/);
+    });
+  });
+
 });
